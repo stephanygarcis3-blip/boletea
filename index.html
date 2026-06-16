@@ -170,7 +170,7 @@
             font-weight: 700;
         }
 
-        /* AJUSTE CRÍTICO: Contenedor Adaptable para evitar recortes del QR */
+        /* NUEVA ESTRATEGIA INMUNE A CORTES */
         .qr-container {
             display: flex;
             flex-direction: column;
@@ -179,137 +179,14 @@
             margin-top: 10px;
             width: 100%;
         }
-        .qr-box {
-            width: 160px;
-            height: 160px;
+        
+        .qr-box-fixed {
+            width: 150px;
+            height: 150px;
             background-color: #ffffff;
             border: 1px solid #dddddd;
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
             border-radius: 4px;
-        }
-        .qr-img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            display: block;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: pixelated;
-        }
-
-        .serial-number {
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-top: 12px;
-            text-align: center;
-        }
-
-        /* Wallet Button */
-        .wallet-btn-container {
-            margin-top: 25px;
-            width: 100%;
-            max-width: 380px;
-            display: flex;
-            justify-content: center;
-        }
-        .wallet-button {
-            background-color: #111;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 10px 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            width: 100%;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-        }
-        .wallet-icon {
-            width: 24px;
-            height: 18px;
-            background: linear-gradient(135deg, #4285F4, #EA4335, #FBBC05, #34A853);
-            border-radius: 3px;
-            position: relative;
-        }
-        .wallet-icon::after {
-            content: '';
-            position: absolute;
-            right: 3px; top: 4px; width: 6px; height: 10px;
-            background-color: #111; border-radius: 1px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="top-bar">
-        <span class="title">Boleto 1 de 1</span>
-        <button class="btn-download" onclick="window.print()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4M7 10l5 5 5-5M12 15V3"/></svg>
-            Guardar PDF
-        </button>
-    </div>
-
-    <div class="ticket-container">
-        <div class="ticket-card">
-            <div class="ticket-header">
-                <div class="order-label">ORDER#</div>
-                <div class="order-num">2118414</div>
-            </div>
             
-            <div class="logo-container">
-                <div class="logo-main">Boletea</div>
-                <div class="logo-sub">Tickets</div>
-            </div>
-
-            <div class="event-info">
-                <div class="info-block">
-                    <div class="info-label">DATES</div>
-                    <div class="info-value">7/3/2026 - 11:00 AM</div>
-                </div>
-                <div class="info-block text-right">
-                    <div class="info-label">PALENQUE FERIA GOMEZ PALACIO</div>
-                    <div class="info-value">GPD20703 JORGE MEDINA Y JOSI CUEN</div>
-                </div>
-            </div>
-
-            <div class="seating-grid">
-                <div>
-                    <div class="seat-label">SECTION</div>
-                    <div class="seat-value">Gradas</div>
-                </div>
-                <div>
-                    <div class="seat-label">ROW</div>
-                    <div class="seat-value">GENERAL</div>
-                </div>
-                <div>
-                    <div class="seat-label">SEAT</div>
-                    <div class="seat-value">S/N</div>
-                </div>
-                <div class="text-right">
-                    <div class="seat-label">PRICING CODE</div>
-                    <div class="seat-value">CDV</div>
-                </div>
-            </div>
-
-            <div class="qr-container">
-                <div class="qr-box">
-                    <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAACCBAMAAAC9IcsDAAAAGFBMVEUAAAD//////3vM/////8z//7P//5n//2v//zP0I/p8AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABX0lEQVR4nO2S0Y3DIAxAnYIjdAsGyAboBtkguwG6QboBu0EGyAa9v6YgR6mSqqofb77E8bMlhI8IAsMwDMMwDMMwDMMwDMMwjv6AnY7i18X6+bY0u6m3bftN8g2SzyA3h/lW9O78/N2RAnvFwP6A3Bf0R9G7gXwHeQLInwD5CvIl5LnoGfIsbA62wJ4gzwbIpyH6UfRWeS4I7AnIn0VvlWcj5CXI96JnI+QpXAbIByF/N0Q/BvInpA0+p9N2E7vW2X247+S8A7I3O7P3/D9OId/m7/zZHeRpyJ+w9pDPoN93O3uBPUHeu6/b2R3mC6S9u6Vw2vM95D10y7y3f96f92X3N7uDfArXm7H20E/gGrYVrvuYp5BvIbe9057v7tAHe+gT9Gf/9XF6tvsL13V/IOf9NbyVvd0L7OnSAnv7B4ZhGIZhGIZhGIZhGMZf8AsS1KAn4CidrQAAAABJRU5ErkJggg==" alt="QR Code">
-                </div>
-                <div class="serial-number">0222243649794947822226</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="wallet-btn-container">
-                    
+            /* Inyección del QR directo en el fondo para evitar que falle en GitHub */
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAACCBAMAAAC9IcsDAAAAGFBMVEUAAAD//////3vM/////8z//7P//5n//2v//zP0I/p8AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABX0lEQVR4nO2S0Y3DIAxAnYIjdAsGyAboBtkguwG6QboBu0EGyAa9v6YgR6mSqqofb77E8bMlhI8IAsMwDMMwDMMwDMMwDMMwjv6AnY7i18X6+bY0u6m3bftN8g2SzyA3h/lW9O78/N2RAnvFwP6A3Bf0R9G7gXwHeQLInwD5CvIl5LnoGfIsbA62wJ4gzwbIpyH6UfRWeS4I7AnIn0VvlWcj5CXI96JnI+QpXAbIByF/N0Q/BvInpA0+p9N2E7vW2X247+S8A7I3O7P3/D9OId/m7/zZHeRpyJ+w9pDPo
+        
