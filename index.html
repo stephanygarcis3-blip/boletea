@@ -170,33 +170,36 @@
             font-weight: 700;
         }
 
-        /* Static Normal QR Code Area */
+        /* AJUSTE CRÍTICO: Contenedor Adaptable para evitar recortes del QR */
         .qr-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin-top: 10px;
+            width: 100%;
         }
         .qr-box {
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             background-color: #ffffff;
-            border: 1px solid #ddd;
-            padding: 5px;
+            border: 1px solid #dddddd;
+            padding: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-sizing: border-box;
+            border-radius: 4px;
         }
         .qr-img {
-            width: 140px;
-            height: 140px;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: -o-crisp-edges;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            display: block;
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
             image-rendering: pixelated;
-            -ms-interpolation-mode: nearest-neighbor;
         }
 
         .serial-number {
@@ -258,7 +261,6 @@
     </div>
 
     <div class="ticket-container">
-        <!-- BOLETO ÚNICO -->
         <div class="ticket-card">
             <div class="ticket-header">
                 <div class="order-label">ORDER#</div>
@@ -310,11 +312,4 @@
     </div>
 
     <div class="wallet-btn-container">
-        <a class="wallet-button" href="https://pay.google.com/gp/v/save/eyJhbGciOiJSUzI1NiIsImtpZCI6IjI2ZDRhOTVhZTk1MDNmZTY0MThmZWJhY2E5OGI2YmQxZTU1NjhmOTMiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJnb29nbGUiLCJpYXQiOjE3NzYyOTAxMjksImlzcyI6IndhbGxldC1wYXNzZXMtc2hhcmluZ0BzeXN0ZW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsInR5cCI6InNhdmV0b2dvb2dsZXBheSIsInBheWxvYWQiOnsiZXZlbnRUaWketT2JqZWN0cyI6beyJjbGFzc0lkIjoiMzM1MzEwNjU0ODcwNzczNzQ0MS41MmEyODkwZTJiNmQ5MDQ2NWQyYzJiZWI1ZmVjNzU1Njg1ODYxMTIxOWZ3enA4NzA4aDJrZWQ4eTMyanIiLCJpZCI6IjMzNTMxMDY1NDg3MDc3Mzc0NDEuM2I2MTdhYjM1ZDcxZjkyOTZlYTdhYzZhNmYwOTVkZmFjMDFjOTkwOHFuMHB2cGpwOG9vaWY3YWpwbXFnIn1dfX0.DaicMPcY3eDapqr5mq-pUGh0F3O0BqBqGpJ05aAQdX0FGf49Oz1zwcaPGSXSFfSES-O_JivPvnVyKnwtPpaGO5wa9ksHaqK3RVvn0Mksfsav9_Eu-2AOlrHJw9pk0VIYVf9PtFRB781ruzx_m5J5lsTDzVUhSitJoftr54R6t1pgXAMI2Tsrq6PZRy55FqzDJxuLwdIxZfCOdC0xmKEXbRXPcLYIecwERMLASv5tS3TaNcu96a3jIHBwbfuUizfwvkfTJhVdvXRwvwy5g074KTeOuhv1qHvF9NlmBxMOBRPsXmV1pEKmfNnawOZj0MzuXwoVaeLBXGWzGrgiKd5DyQ">
-            <div class="wallet-icon"></div>
-            Añadir a Google Wallet
-        </a>
-    </div>
-
-</body>
-</html>
+                    
