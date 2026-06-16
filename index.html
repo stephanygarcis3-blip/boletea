@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Boleto Digital - Jorge Medina y Josi Cuen</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        /* Top Action Bar */
+        .top-bar {
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5px;
+            margin-bottom: 10px;
+        }
+        .top-bar .title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .btn-download {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+        }
+
+        /* Ticket Wrapper */
+        .ticket-container {
+            width: 100%;
+            max-width: 380px;
+        }
+        
+        /* Ticket Layout */
+        .ticket-card {
+            width: 100%;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 24px 20px 30px 20px;
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* Top notch simulation */
+        .ticket-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 14px;
+            background-color: #000000;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        .ticket-header {
+            text-align: right;
+            margin-bottom: 5px;
+        }
+        .order-label {
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+        .order-num {
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1;
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin: 10px 0 15px 0;
+        }
+        .logo-main {
+            font-family: 'Arial Black', Impact, sans-serif;
+            font-size: 52px;
+            font-weight: 900;
+            font-style: italic;
+            color: #d3141e;
+            letter-spacing: -2px;
+            line-height: 0.9;
+        }
+        .logo-sub {
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 12px;
+            text-indent: 12px;
+            text-align: center;
+            margin-top: -4px;
+            text-transform: uppercase;
+        }
+
+        .event-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            font-size: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 12px;
+        }
+        .info-block {
+            flex: 1;
+        }
+        .info-label {
+            font-size: 10px;
+            font-weight: bold;
+            color: #555555;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+        .info-value {
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .text-right {
+            text-align: right;
+        }
+
+        /* Seating Matrix Grid */
+        .seating-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1.1fr 0.7fr 1fr;
+            gap: 10px;
+            margin-bottom: 35px;
+        }
+        .seat-label {
+            font-size: 10px;
+            font-weight: bold;
+            color: #555555;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .seat-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Static Normal QR Code Area */
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .qr-box {
+            width: 150px;
+            height: 150px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qr-img {
+            width: 140px;
+            height: 140px;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -o-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+            -ms-interpolation-mode: nearest-neighbor;
+        }
+
+        .serial-number {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        /* Wallet Button */
+        .wallet-btn-container {
+            margin-top: 25px;
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            justify-content: center;
+        }
+        .wallet-button {
+            background-color: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+        .wallet-icon {
+            width: 24px;
+            height: 18px;
+            background: linear-gradient(135deg, #4285F4, #EA4335, #FBBC05, #34A853);
+            border-radius: 3px;
+            position: relative;
+        }
+        .wallet-icon::after {
+            content: '';
+            position: absolute;
+            right: 3px; top: 4px; width: 6px; height: 10px;
+            background-color: #111; border-radius: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <span class="title">Boleto 1 de 1</span>
+        <button class="btn-download" onclick="window.print()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4M7 10l5 5 5-5M12 15V3"/></svg>
+            Guardar PDF
+        </button>
+    </div>
+
+    <div class="ticket-container">
+        <!-- BOLETO ÚNICO -->
+        <div class="ticket-card">
+            <div class="ticket-header">
+                <div class="order-label">ORDER#</div>
+                <div class="order-num">2118414</div>
+            </div>
+            
+            <div class="logo-container">
+                <div class="logo-main">Boletea</div>
+                <div class="logo-sub">Tickets</div>
+            </div>
+
+            <div class="event-info">
+                <div class="info-block">
+                    <div class="info-label">DATES</div>
+                    <div class="info-value">7/3/2026 - 11:00 AM</div>
+                </div>
+                <div class="info-block text-right">
+                    <div class="info-label">PALENQUE FERIA GOMEZ PALACIO</div>
+                    <div class="info-value">GPD20703 JORGE MEDINA Y JOSI CUEN</div>
+                </div>
+            </div>
+
+            <div class="seating-grid">
+                <div>
+                    <div class="seat-label">SECTION</div>
+                    <div class="seat-value">Gradas</div>
+                </div>
+                <div>
+                    <div class="seat-label">ROW</div>
+                    <div class="seat-value">GENERAL</div>
+                </div>
+                <div>
+                    <div class="seat-label">SEAT</div>
+                    <div class="seat-value">S/N</div>
+                </div>
+                <div class="text-right">
+                    <div class="seat-label">PRICING CODE</div>
+                    <div class="seat-value">CDV</div>
+                </div>
+            </div>
+
+            <div class="qr-container">
+                <div class="qr-box">
+                    <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAACCBAMAAAC9IcsDAAAAGFBMVEUAAAD//////3vM/////8z//7P//5n//2v//zP0I/p8AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABX0lEQVR4nO2S0Y3DIAxAnYIjdAsGyAboBtkguwG6QboBu0EGyAa9v6YgR6mSqqofb77E8bMlhI8IAsMwDMMwDMMwDMMwDMMwjv6AnY7i18X6+bY0u6m3bftN8g2SzyA3h/lW9O78/N2RAnvFwP6A3Bf0R9G7gXwHeQLInwD5CvIl5LnoGfIsbA62wJ4gzwbIpyH6UfRWeS4I7AnIn0VvlWcj5CXI96JnI+QpXAbIByF/N0Q/BvInpA0+p9N2E7vW2X247+S8A7I3O7P3/D9OId/m7/zZHeRpyJ+w9pDPoN93O3uBPUHeu6/b2R3mC6S9u6Vw2vM95D10y7y3f96f92X3N7uDfArXm7H20E/gGrYVrvuYp5BvIbe9057v7tAHe+gT9Gf/9XF6tvsL13V/IOf9NbyVvd0L7OnSAnv7B4ZhGIZhGIZhGIZhGMZf8AsS1KAn4CidrQAAAABJRU5ErkJggg==" alt="QR Code">
+                </div>
+                <div class="serial-number">0222243649794947822226</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wallet-btn-container">
+        <a class="wallet-button" href="https://pay.google.com/gp/v/save/eyJhbGciOiJSUzI1NiIsImtpZCI6IjI2ZDRhOTVhZTk1MDNmZTY0MThmZWJhY2E5OGI2YmQxZTU1NjhmOTMiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJnb29nbGUiLCJpYXQiOjE3NzYyOTAxMjksImlzcyI6IndhbGxldC1wYXNzZXMtc2hhcmluZ0BzeXN0ZW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsInR5cCI6InNhdmV0b2dvb2dsZXBheSIsInBheWxvYWQiOnsiZXZlbnRUaWketT2JqZWN0cyI6beyJjbGFzc0lkIjoiMzM1MzEwNjU0ODcwNzczNzQ0MS41MmEyODkwZTJiNmQ5MDQ2NWQyYzJiZWI1ZmVjNzU1Njg1ODYxMTIxOWZ3enA4NzA4aDJrZWQ4eTMyanIiLCJpZCI6IjMzNTMxMDY1NDg3MDc3Mzc0NDEuM2I2MTdhYjM1ZDcxZjkyOTZlYTdhYzZhNmYwOTVkZmFjMDFjOTkwOHFuMHB2cGpwOG9vaWY3YWpwbXFnIn1dfX0.DaicMPcY3eDapqr5mq-pUGh0F3O0BqBqGpJ05aAQdX0FGf49Oz1zwcaPGSXSFfSES-O_JivPvnVyKnwtPpaGO5wa9ksHaqK3RVvn0Mksfsav9_Eu-2AOlrHJw9pk0VIYVf9PtFRB781ruzx_m5J5lsTDzVUhSitJoftr54R6t1pgXAMI2Tsrq6PZRy55FqzDJxuLwdIxZfCOdC0xmKEXbRXPcLYIecwERMLASv5tS3TaNcu96a3jIHBwbfuUizfwvkfTJhVdvXRwvwy5g074KTeOuhv1qHvF9NlmBxMOBRPsXmV1pEKmfNnawOZj0MzuXwoVaeLBXGWzGrgiKd5DyQ">
+            <div class="wallet-icon"></div>
+            Añadir a Google Wallet
+        </a>
+    </div>
+
+</body>
+</html>
